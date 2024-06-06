@@ -2,22 +2,37 @@ import React, { useState, useEffect } from "react";
 import "./topnav.css";
 import Dropdown from "../dropdown/Dropdown";
 import { Link, NavLink, useHistory } from "react-router-dom";
-import user_image from "../../assets/images/tan.jpg";
+import user_image from "../../assets/images/user.png";
 import user_menu from "../../assets/JsonData/user_menus.json";
-import { loadNotification, readNotification, pushNotification } from "../../api/NotificationApi";
+import {
+  loadNotification,
+  readNotification,
+  pushNotification,
+} from "../../api/NotificationApi";
 import { toast } from "react-toastify";
 
 const TopNav = (props) => {
   const [notifications, setNotifications] = useState([]);
   const [key, setKey] = useState("");
-  
+
   const history = useHistory();
 
   const renderNotificationItem = (item, index) => (
-    <NavLink to={item.type == 3 ? `/product-detail/${item.product.id}` : `/search/${item.order.id}`} exact key={index}  onClick={() => readHandler(item.id)}>
-      <div className="notification-item" >
+    <NavLink
+      to={
+        item.type == 3
+          ? `/product-detail/${item.product.id}`
+          : `/search/${item.order.id}`
+      }
+      exact
+      key={index}
+      onClick={() => readHandler(item.id)}
+    >
+      <div className="notification-item">
         <i className="bx bx-package"></i>
-        <span className={item.type === 1 ? "text-primary" : "text-danger"}>{item.content}</span>
+        <span className={item.type === 1 ? "text-primary" : "text-danger"}>
+          {item.content}
+        </span>
       </div>
     </NavLink>
   );
@@ -37,12 +52,14 @@ const TopNav = (props) => {
       .catch((error) => console.log(error));
 
     await pushNotification()
-    .then((resp) => {
-        resp.data.map((item) => (
-         item.type == 1 ? toast.success(item.content) : toast.warning(item.content)
-        ))
-    })
-    .catch((error) => console.log(error));
+      .then((resp) => {
+        resp.data.map((item) =>
+          item.type == 1
+            ? toast.success(item.content)
+            : toast.warning(item.content)
+        );
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -65,28 +82,32 @@ const TopNav = (props) => {
     props.userHandler(null);
   };
 
-  const readHandler = (id) =>{
-      readNotification(id)
+  const readHandler = (id) => {
+    readNotification(id)
       .then(() => console.log(id))
       .catch((error) => console.log(error));
-  }
+  };
   const curr_user = {
     display_name: props.user.fullName,
     image: user_image,
   };
 
-  const searchHandler = (key) =>{
-      history.push(`/search/${key}`);
-  }
+  const searchHandler = (key) => {
+    history.push(`/search/${key}`);
+  };
 
-  const keyHanlder = (value) =>{
-      setKey(value);
-  }
+  const keyHanlder = (value) => {
+    setKey(value);
+  };
 
   return (
     <div className="topnav">
       <div className="topnav__search">
-        <input type="text" placeholder="Search here..." onChange={(e) => keyHanlder(e.target.value)}/>
+        <input
+          type="text"
+          placeholder="Search here..."
+          onChange={(e) => keyHanlder(e.target.value)}
+        />
         <i className="bx bx-search" onClick={() => searchHandler(key)}></i>
       </div>
       <div className="topnav__right">

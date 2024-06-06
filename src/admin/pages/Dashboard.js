@@ -64,112 +64,101 @@ const Dashboard = () => {
   return (
     <div>
       <h2 className="page-header">Thống kê</h2>
-      <div className="row">
-        <div className="col-6">
+      <div className="">
+        <div className="">
           <div className="row container-fluid">
-            <div className="col">
+            <div className="col status-card-1">
+              <StatusCard count={countAcc} title={`Khách hàng`} />
+              <StatusCard count={countPro} title={`Sản phẩm`} />
+              <StatusCard count={countOr} title={`Đơn hàng`} />
               <StatusCard
-                icon={statusCards[0].icon}
-                count={countAcc}
-                title={`Khách hàng`}
-              />
-              <StatusCard
-                icon={statusCards[1].icon}
-                count={countPro}
-                title={`Sản phẩm`}
-              />
-              <StatusCard
-                icon={statusCards[3].icon}
-                count={countOr}
-                title={`Đơn hàng`}
-              />
-              <StatusCard
-                icon={statusCards[2].icon}
                 count={total && total.toLocaleString()}
                 title={`Tổng doanh thu`}
               />
             </div>
           </div>
         </div>
-        <div className="col-6">
-          <div className="card full-height">
-            <Chart options={option} series={seri} type="donut" height="100%" />
+        <div className="">
+          <div className=" full-height">
+            <Chart options={option} series={seri} type="bar" height="500" />
           </div>
         </div>
-        <div className="col-6">
-          <div className="card">
-            <div className="card__header">
-              <h3 className="text-primary">Doanh thu theo sản phẩm</h3>
-            </div>
-            <div className="card__body">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Mã sản phẩm</th>
-                    <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">Số lượng bán</th>
-                    <th scope="col">Doanh thu</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {product &&
-                    product.map((item, index) => (
-                      <tr key={index}>
-                        <th scope="row">
-                          <NavLink to={`/order-product/${item.id}`} exact>
-                            {" "}
-                            {item.id}
-                          </NavLink>
-                        </th>
-                        <td>{item.name}</td>
-                        <td>{item.count}</td>
-                        <td>{item.amount.toLocaleString()} đ</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="card__footer">
-              <Link to="/report-product">Xem chi tiết</Link>
+        <div className="d-flex">
+          <div className="col-6">
+            <div className="">
+              <div className="card__header">
+                <h3 className="">Doanh thu theo sản phẩm</h3>
+              </div>
+              <div className="card__body">
+                <table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Mã sản phẩm</th>
+                      <th scope="col">Tên sản phẩm</th>
+                      <th scope="col">Số lượng bán</th>
+                      <th scope="col">Doanh thu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {product &&
+                      product.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">
+                            <NavLink to={`/order-product/${item.id}`} exact>
+                              {" "}
+                              {item.id}
+                            </NavLink>
+                          </th>
+                          <td>{item.name}</td>
+                          <td>{item.count}</td>
+                          <td>{item.amount.toLocaleString()} đ</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="card__footer">
+                <Link to="/report-product">Xem chi tiết</Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-6">
-          <div className="card">
-            <div className="card__header">
-              <h3 className="text-primary">Doanh thu theo Năm</h3>
-            </div>
-            <div className="card__body">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Năm</th>
-                    <th scope="col">Số lượng đơn</th>
-                    <th scope="col">Doanh thu</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {year &&
-                    year.map((item, index) => (
-                      <tr key={index}>
-                        <th scope="row">
-                          <NavLink exact to={`/report-month/${item.year}`}>
-                            {index + 1}
-                          </NavLink>
-                        </th>
-                        <td>{item.year}</td>
-                        <td>{item.count}</td>
-                        <td>{item.total && item.total.toLocaleString()} đ</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="card__footer">
-              <NavLink exact to={`/report-month/2022`}>
-                Xem chi tiết
-              </NavLink>
+          <div className="col-6">
+            <div className="">
+              <div className="card__header">
+                <h3 className="">Doanh thu theo Năm</h3>
+              </div>
+              <div className="card__body">
+                <table className="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">STT</th>
+                      <th scope="col">Năm</th>
+                      <th scope="col">Số lượng đơn</th>
+                      <th scope="col">Doanh thu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {year &&
+                      year.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">
+                            <NavLink exact to={`/report-month/${item.year}`}>
+                              {index + 1}
+                            </NavLink>
+                          </th>
+                          <td>{item.year}</td>
+                          <td>{item.count}</td>
+                          <td>{item.total && item.total.toLocaleString()} đ</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="card__footer">
+                <NavLink exact to={`/report-month/2022`}>
+                  Xem chi tiết
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>

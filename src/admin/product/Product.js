@@ -61,7 +61,7 @@ const Product = () => {
   };
   return (
     <div className="col-12">
-      <div className="card">
+      <div className="">
         <div className="card__header">
           <NavLink
             to="/add-product"
@@ -142,23 +142,23 @@ const Product = () => {
         <nav aria-label="Page navigation">
           <ul className="pagination offset-5 mt-3">
             <li className={page === 1 ? "page-item disabled" : "page-item"}>
-              <button
+              {/* <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
                 onClick={() => onChangePage(1)}
               >
                 {`<<`}
-              </button>
+              </button> */}
             </li>
             {rows}
             <li className={page === total ? "page-item disabled" : "page-item"}>
-              <button
+              {/* <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
                 onClick={() => onChangePage(total)}
               >
                 {`>>`}
-              </button>
+              </button> */}
             </li>
           </ul>
         </nav>

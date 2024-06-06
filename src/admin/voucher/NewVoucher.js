@@ -1,32 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import {createVoucher} from '../../api/VoucherApi';
+import { createVoucher } from "../../api/VoucherApi";
 import { toast } from "react-toastify";
 
 const NewVoucher = () => {
   const history = useHistory();
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (data) =>{
+  const submitHandler = (data) => {
     const result = {
       ...data,
       id: null,
       createDate: null,
-      isActive: null
-    }
+      isActive: null,
+    };
     createVoucher(result)
-    .then(() => {
-      toast.success("Thêm voucher thành công.");
-      history.push('/vouchers');
-    })
-    .catch((error) => toast.error(error.response.data.Errors));
-  }
+      .then(() => {
+        toast.success("Thêm voucher thành công.");
+        history.push("/vouchers");
+      })
+      .catch((error) => toast.error(error.response.data.Errors));
+  };
   return (
     <div className="container-fluid card">
       <div className="col-10 offset-1 text-center">
@@ -34,7 +34,10 @@ const NewVoucher = () => {
       </div>
       <div className="row">
         <div className="col-10 offset-1">
-          <form className="needs-validation" onSubmit={handleSubmit(submitHandler)}>
+          <form
+            className="needs-validation"
+            onSubmit={handleSubmit(submitHandler)}
+          >
             <div className="row g-3">
               <div className="col-sm-6">
                 <label className="form-label">Code</label>
@@ -44,7 +47,7 @@ const NewVoucher = () => {
                   id="lastName"
                   {...register("code", {
                     required: true,
-                    pattern: /^\s*\S+.*/
+                    pattern: /^\s*\S+.*/,
                   })}
                 />
                 {errors.code && (
@@ -62,7 +65,7 @@ const NewVoucher = () => {
                   {...register("discount", {
                     required: true,
                     min: 0,
-                    max: 100
+                    max: 100,
                   })}
                 />
                 {errors.discount && (
@@ -79,7 +82,7 @@ const NewVoucher = () => {
                   id="lastName"
                   {...register("count", {
                     required: true,
-                    min: 0
+                    min: 0,
                   })}
                 />
                 {errors.count && (
@@ -92,12 +95,12 @@ const NewVoucher = () => {
                 <label className="form-label">Ngày hết hạn</label>
                 <input
                   type="date"
-                  min="2022-01-01"
-                  max="2023-01-01"
+                  min="2024-01-01"
+                  max="2025-01-01"
                   className="form-control"
                   id="lastName"
                   {...register("expireDate", {
-                    required: true
+                    required: true,
                   })}
                 />
               </div>

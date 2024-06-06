@@ -87,6 +87,8 @@ const ReportMonth = (props) => {
             <option value="2019">2019</option>
             <option value="2021">2021</option>
             <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
           </select>
         </div>
         <div className="card__body">
@@ -102,10 +104,20 @@ const ReportMonth = (props) => {
             <tbody>
               {month &&
                 month.map((item, index) => (
-                  <tr key={index} className={select === item.month ? "table-danger" : ""}>
+                  <tr
+                    key={index}
+                    className={select === item.month ? "table-danger" : ""}
+                  >
                     <th scope="row">
                       <button
-                        style={{ margin: 0, borderRadius: 0, padding: 0, backgroundColor: select === item.month ? '#f5c6cb' : 'white', width: 100 }}
+                        style={{
+                          margin: 0,
+                          borderRadius: 0,
+                          padding: 0,
+                          backgroundColor:
+                            select === item.month ? "#f5c6cb" : "white",
+                          width: 100,
+                        }}
                         onClick={() => clickHandler(item.month)}
                       >
                         #000{index + 1}

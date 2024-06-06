@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   getAllOrderAndPagination,
   getOrderByOrderStatusAndYearAndMonth,
@@ -46,7 +46,8 @@ const Order = () => {
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
   const [shipDate, setShipDate] = useState(null);
-
+  const [isPending, setIsPending] = useState(false);
+  const location = useLocation();
   const shipmentHandler = (value) => {
     console.log(value);
     setShipment(value);
@@ -136,6 +137,12 @@ const Order = () => {
       statusId: statusId,
     });
   };
+  useEffect(() => {
+    // Extract the isPending value from the URL when the component mounts
+    const searchParams = new URLSearchParams(location.search);
+    const isPendingValue = searchParams.get("isPending");
+    setIsPending(isPendingValue === "true");
+  }, [location.search]);
   const [status, setStatus] = useState(0);
   const [orderStatuses, setOrderStatuses] = useState([]);
   const [obj, setObj] = useState({});
@@ -369,12 +376,13 @@ const Order = () => {
   };
 
   const flagSuccessHandler = (e) => {
+    console.log(e);
     const { checked } = e.target;
     setFlagSuccess(checked);
   };
   return (
     <div className="col-12">
-      <div className="card">
+      <div className="">
         <div className="card__header">
           <h3>Đơn hàng</h3>
         </div>
@@ -399,12 +407,10 @@ const Order = () => {
               onChange={(e) => changeYearHandler(e.target.value)}
               value={year}
             >
-              <option value="">
-                Chọn năm
-              </option>
-              <option value="2019">2019</option>
-              <option value="2021">2021</option>
+              <option value="">Chọn năm</option>
               <option value="2022">2022</option>
+              <option value="2022">2023</option>
+              <option value="2022">2024</option>
             </select>
           </div>
           <div className="col-sm-4 mt-2">
@@ -415,9 +421,7 @@ const Order = () => {
               }
               value={month}
             >
-              <option value="">
-                Chọn tháng
-              </option>
+              <option value="">Chọn tháng</option>
               {months &&
                 months.map((item, index) => (
                   <option key={index} value={item}>
@@ -626,23 +630,23 @@ const Order = () => {
         <nav aria-label="Page navigation">
           <ul className="pagination offset-5 mt-3">
             <li className={page === 1 ? "page-item disabled" : "page-item"}>
-              <button
+              {/* <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
                 onClick={() => onChangePage(1)}
               >
                 {`<<`}
-              </button>
+              </button> */}
             </li>
             {rows}
             <li className={page === total ? "page-item disabled" : "page-item"}>
-              <button
+              {/* <button
                 className="page-link"
                 style={{ borderRadius: 50 }}
                 onClick={() => onChangePage(total)}
               >
                 {`>>`}
-              </button>
+              </button> */}
             </li>
           </ul>
         </nav>

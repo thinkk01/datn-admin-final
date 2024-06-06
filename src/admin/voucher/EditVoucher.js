@@ -24,7 +24,7 @@ const EditVoucher = () => {
     const result = {
       ...data,
       id: id,
-      createDate: null
+      createDate: null,
     };
     console.log(result);
     updateVoucher(result)
@@ -101,8 +101,8 @@ const EditVoucher = () => {
                 <label className="form-label">Ngày hết hạn</label>
                 <input
                   type="date"
-                  min="2022-01-01"
-                  max="2023-01-01"
+                  min="2024-01-01"
+                  max="2025-01-01"
                   className="form-control"
                   {...register("expireDate", {
                     required: true,

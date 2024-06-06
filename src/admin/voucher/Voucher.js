@@ -38,7 +38,7 @@ const Voucher = () => {
   };
 
   return (
-    <div className="card">
+    <div className="">
       <div className="card__header mb-5">
         <NavLink
           to="/add-voucher"
@@ -75,7 +75,7 @@ const Voucher = () => {
                   <NavLink to={`/voucher-detail/${item.id}`} exact>
                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </NavLink>{" "}
-                </td>             
+                </td>
               </tr>
             ))}
         </tbody>
@@ -83,23 +83,23 @@ const Voucher = () => {
       <nav aria-label="Page navigation">
         <ul className="pagination offset-5 mt-3">
           <li className={page === 1 ? "page-item disabled" : "page-item"}>
-            <button
+            {/* <button
               className="page-link"
               style={{ borderRadius: 50 }}
               onClick={() => onChangePage(1)}
             >
               {`<<`}
-            </button>
+            </button> */}
           </li>
           {rows}
           <li className={page === total ? "page-item disabled" : "page-item"}>
-            <button
+            {/* <button
               className="page-link"
               style={{ borderRadius: 50 }}
               onClick={() => onChangePage(total)}
             >
               {`>>`}
-            </button>
+            </button> */}
           </li>
         </ul>
       </nav>
