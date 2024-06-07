@@ -18,6 +18,7 @@ import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { getAllOrderStatus } from "../../api/OrderStatusApi";
 import Alert from "react-bootstrap/Alert";
+import axios from "axios";
 
 const orderStatus = {
   "Chờ xác nhận": "secondary",
@@ -46,8 +47,6 @@ const Order = () => {
   const [description, setDescription] = useState(null);
   const [reason, setReason] = useState(null);
   const [shipDate, setShipDate] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  const location = useLocation();
   const shipmentHandler = (value) => {
     console.log(value);
     setShipment(value);
@@ -137,12 +136,23 @@ const Order = () => {
       statusId: statusId,
     });
   };
+  const [isPending, setIsPending] = useState(false);
+  const location = useLocation();
+  // GET pending
   useEffect(() => {
-    // Extract the isPending value from the URL when the component mounts
-    const searchParams = new URLSearchParams(location.search);
-    const isPendingValue = searchParams.get("isPending");
-    setIsPending(isPendingValue === "true");
-  }, [location.search]);
+    const fetchPendingStatus = async () => {
+      try {
+        const response = await axios.get("/api/site/get-pending-status");
+        setIsPending(response.data.isPending);
+      } catch (error) {
+        console.error("Error fetching pending status:", error);
+      }
+    };
+
+    fetchPendingStatus();
+  }, [location]);
+  console.log(isPending);
+  // the end pending
   const [status, setStatus] = useState(0);
   const [orderStatuses, setOrderStatuses] = useState([]);
   const [obj, setObj] = useState({});
@@ -374,7 +384,7 @@ const Order = () => {
     const { checked } = e.target;
     setFlagProcess(checked);
   };
-
+  // on change da thanh toan
   const flagSuccessHandler = (e) => {
     console.log(e);
     const { checked } = e.target;
