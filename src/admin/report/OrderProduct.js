@@ -17,7 +17,7 @@ const OrderProduct = () => {
     >
       <button
         className="page-link"
-        style={{ borderRadius: 50 }}
+        style={{ borderRadius: "0px" }}
         onClick={() => onChangePage(index + 1)}
       >
         {index + 1}
@@ -37,16 +37,16 @@ const OrderProduct = () => {
   const onChangePage = (page) => {
     setPage(page);
   };
-  const goBack = () =>{
+  const goBack = () => {
     history.goBack();
-  }
+  };
   return (
     <div className="col-12">
       <div className="card">
         <div className="card__header text-center">
           <h3 className="text-primary">Đơn hàng theo sản phẩm</h3>
         </div>
-        <button style={{width: 60}} onClick={() => goBack()}>
+        <button style={{ width: 60 }} onClick={() => goBack()}>
           <i
             className="fa fa-arrow-left"
             style={{ fontSize: 18 }}

@@ -80,7 +80,7 @@ const Dashboard = () => {
         </div>
         <div className="">
           <div className=" full-height">
-            <Chart options={option} series={seri} type="bar" height="500" />
+            <Chart options={option} series={seri} type="pie" height="500" />
           </div>
         </div>
         <div className="d-flex">

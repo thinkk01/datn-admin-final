@@ -14,7 +14,7 @@ const ReportProduct = () => {
     >
       <button
         className="page-link"
-        style={{ borderRadius: 50 }}
+        style={{ borderRadius: "0px" }}
         onClick={() => onChangePage(index + 1)}
       >
         {index + 1}
@@ -34,16 +34,16 @@ const ReportProduct = () => {
   const onChangePage = (page) => {
     setPage(page);
   };
-  const goBack = () =>{
+  const goBack = () => {
     history.goBack();
-  }
+  };
   return (
     <div className="col-12">
       <div className="card">
         <div className="card__header">
           <h3 className="text-primary">Doanh thu theo sản phẩm</h3>
         </div>
-        <button style={{width: 60}} onClick={() => goBack()}>
+        <button style={{ width: 60 }} onClick={() => goBack()}>
           <i
             className="fa fa-arrow-left"
             style={{ fontSize: 18 }}
@@ -65,7 +65,12 @@ const ReportProduct = () => {
               {product &&
                 product.map((item, index) => (
                   <tr key={index}>
-                  <th scope="row"><NavLink to={`/order-product/${item.id}`} exact> {item.id}</NavLink></th>
+                    <th scope="row">
+                      <NavLink to={`/order-product/${item.id}`} exact>
+                        {" "}
+                        {item.id}
+                      </NavLink>
+                    </th>
                     <td>{item.name}</td>
                     <td>{item.quantity ? item.quantity : 0}</td>
                     <td>{item.count}</td>

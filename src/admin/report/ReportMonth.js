@@ -22,7 +22,7 @@ const ReportMonth = (props) => {
     >
       <button
         className="page-link"
-        style={{ borderRadius: 50 }}
+        style={{ borderRadius: "0px" }}
         onClick={() => onChangePage(index + 1)}
       >
         {index + 1}

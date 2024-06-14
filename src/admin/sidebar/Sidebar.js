@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./sidebar.css";
-import logo from "../../assets/images/logo-sneaker.png";
+import logo from "../../static/images/logo/logo-removebg-preview.png";
 // import sidebar_items from "../../assets/JsonData/sidebar_routes.json";
 import { Link } from "react-router-dom";
 
@@ -124,7 +124,11 @@ const Sidebar = (props) => {
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
-        <img src={logo} alt="store logo" />
+        <img
+          src={logo}
+          style={{ width: "200px", height: "80px" }}
+          alt="store logo"
+        />
       </div>
       {sidebar_items.map((item, index) => (
         <Link to={item.route} key={index}>
