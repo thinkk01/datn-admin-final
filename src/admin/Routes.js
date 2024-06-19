@@ -29,8 +29,9 @@ import OrderMonth from "./report/OrderMonth";
 import Upload from "./pages/Upload";
 import Detail from "./product/Detail";
 import Chat from "./chat/Chat";
-import SearchOrder from './pages/SearchOrder';
+import SearchOrder from "./pages/SearchOrder";
 import Error from "./error/Error";
+import ProductClose from "./product/ProductClose";
 
 const Routes = () => {
   const [year, setYear] = useState();
@@ -128,10 +129,13 @@ const Routes = () => {
         <Chat></Chat>
       </Route>
       <Route path={`/search/:id`} exact>
-       <SearchOrder></SearchOrder>
+        <SearchOrder></SearchOrder>
       </Route>
       <Route path={`/error-page`} exact>
-       <Error></Error>
+        <Error></Error>
+      </Route>
+      <Route path={`/products-close`}>
+        <ProductClose></ProductClose>
       </Route>
     </Switch>
   );

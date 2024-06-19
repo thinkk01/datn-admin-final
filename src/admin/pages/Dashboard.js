@@ -87,7 +87,7 @@ const Dashboard = () => {
           <div className="col-6">
             <div className="">
               <div className="card__header">
-                <h3 className="">Doanh thu theo sản phẩm</h3>
+                <h3 className="">Tổng Doanh Thu Theo Sản Phẩm</h3>
               </div>
               <div className="card__body">
                 <table className="table table-bordered">
@@ -125,7 +125,7 @@ const Dashboard = () => {
           <div className="col-6">
             <div className="">
               <div className="card__header">
-                <h3 className="">Doanh thu theo Năm</h3>
+                <h3 className="">Tổng Doanh thu theo Năm</h3>
               </div>
               <div className="card__body">
                 <table className="table table-bordered">

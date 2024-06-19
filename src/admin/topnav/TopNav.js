@@ -101,15 +101,15 @@ const TopNav = (props) => {
   };
 
   return (
-    <div className="topnav">
-      <div className="topnav__search">
+    <div className="topnav flex-end">
+      {/* <div className="topnav__search">
         <input
           type="text"
           placeholder="Search here..."
           onChange={(e) => keyHanlder(e.target.value)}
         />
         <i className="bx bx-search" onClick={() => searchHandler(key)}></i>
-      </div>
+      </div> */}
       <div className="topnav__right">
         <div className="topnav__right-item">
           {/* dropdown here */}

@@ -3,13 +3,14 @@ import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import {
   getAllProductsByBrand,
+  getAllProductsCloseByBrand,
   updateProductStatus,
 } from "../../api/ProductApi";
 import { NavLink } from "react-router-dom";
 import { getBrands } from "../../api/BrandApi";
 import { FaCircle } from "react-icons/fa";
 import ConfirmModal from "./ConFirmModal";
-const Product = () => {
+const ProductClose = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState({});
@@ -22,7 +23,7 @@ const Product = () => {
   }, [page]);
 
   const onLoad = () => {
-    getAllProductsByBrand(0, page, 10, true).then((response) => {
+    getAllProductsCloseByBrand(0, page, 10, false).then((response) => {
       setProducts(response.data.content);
       setTotal(response.data.totalPages);
     });
@@ -56,7 +57,7 @@ const Product = () => {
     if (value == 0) {
       onLoad();
     } else {
-      getAllProductsByBrand(value, 1, 10, true)
+      getAllProductsByBrand(value, 1, 10, false)
         .then((resp) => {
           setProducts(resp.data.content);
           setTotal(resp.data.totalPages);
@@ -64,7 +65,6 @@ const Product = () => {
         .catch((error) => console.log(error));
     }
   };
-  console.log(products);
   // toggle online off
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -102,7 +102,7 @@ const Product = () => {
   return (
     <div className="col-12">
       <div className="">
-        <div className="card__header">
+        {/* <div className="card__header">
           <NavLink
             to="/add-product"
             className="btn btn-primary"
@@ -110,7 +110,7 @@ const Product = () => {
           >
             Thêm sản phẩm
           </NavLink>
-        </div>
+        </div> */}
         <div className="row mb-3 mt-3">
           <div className="col-sm-4 mt-2">
             <select
@@ -236,4 +236,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductClose;

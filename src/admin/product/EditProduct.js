@@ -45,6 +45,7 @@ const EditProduct = () => {
 
     getProductById(id)
       .then((res) => {
+        console.log(res.data.attributes);
         setItem(res.data);
         setFlag(res.data.category);
         setAttributes(res.data.attributes);
@@ -71,10 +72,12 @@ const EditProduct = () => {
       data.size10,
     ];
     const newNums = nums.slice(0, count);
-    const hasDuplicate = newNums.some(x => newNums.indexOf(x) !== newNums.lastIndexOf(x));
-    if(hasDuplicate){
+    const hasDuplicate = newNums.some(
+      (x) => newNums.indexOf(x) !== newNums.lastIndexOf(x)
+    );
+    if (hasDuplicate) {
       toast.warning("Nhập trùng size. Vui lòng nhập lại!");
-    }else{
+    } else {
       const flag = {
         id: id,
         name: data.name,
@@ -133,7 +136,7 @@ const EditProduct = () => {
             size: data.size10,
             price: data.price10,
             stock: data.quantity10,
-          }
+          },
         ].slice(0, count),
       };
       modifyProduct(flag)
@@ -143,14 +146,13 @@ const EditProduct = () => {
         })
         .catch((error) => console.log(error.response.data));
     }
-    
   };
   return (
-    <div className="pb-3 container-fluid card">
-      <div className="col-10 offset-1 text-center">
-        <h1 className="text-danger">Sản phẩm</h1>
+    <div className="pb-3 container-fluid card card-none">
+      <div className="col-10 offset-1 ">
+        <h1 className="">Chỉnh sửa sản phẩm</h1>
       </div>
-      <div className="row card">
+      <div className="row card card-none">
         <form
           className="needs-validation pro-form"
           onSubmit={handleSubmit(submitHandler)}
@@ -256,18 +258,23 @@ const EditProduct = () => {
             </div>
           </div>
           <div className="col-10 row">
-            <div className="card mr-5 col-10">
-              <h4 className="d-flex justify-content-between align-items-center mb-1">
+            <div className="card mr-5 col-10 card-none">
+              {/* <h4 className="d-flex justify-content-between align-items-center mb-1">
                 <span className="text-dark">Chi tiết sản phẩm</span> <br />
-              </h4>
-              <span className="text-dark">Số lượng</span>{" "}
+              </h4> */}
+              <label className="text-dark">Số lượng sản phẩm</label>{" "}
               <select
                 class="form-control mb-2"
                 onChange={(e) => changeCountHandler(e.target.value)}
                 value={count}
               >
                 {numbers.map((item, index) => (
-                  <option value={item} key={index} disabled={item < attributes.length} hidden={item < attributes.length}>
+                  <option
+                    value={item}
+                    key={index}
+                    disabled={item < attributes.length}
+                    hidden={item < attributes.length}
+                  >
                     {index + 1}
                   </option>
                 ))}
@@ -275,14 +282,17 @@ const EditProduct = () => {
               <br />
             </div>
             {count >= 1 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0 mb-0">
+                <label>Sản phẩm 1:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[0] && item.attributes[0].size}
+                      defaultValue={
+                        item.attributes[0] && item.attributes[0].size
+                      }
                       {...register("size1", {
                         required: true,
                         min: 36,
@@ -300,7 +310,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[0] && item.attributes[0].price}
+                      defaultValue={
+                        item.attributes[0] && item.attributes[0].price
+                      }
                       {...register("price1", {
                         required: true,
                         min: 1,
@@ -317,7 +329,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[0] && item.attributes[0].stock}
+                      defaultValue={
+                        item.attributes[0] && item.attributes[0].stock
+                      }
                       {...register("quantity1", {
                         required: true,
                         min: 1,
@@ -333,14 +347,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 2 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 2:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[1] && item.attributes[1].size}
+                      defaultValue={
+                        item.attributes[1] && item.attributes[1].size
+                      }
                       {...register("size2", {
                         required: true,
                         min: 36,
@@ -358,7 +375,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[1] && item.attributes[1].price}
+                      defaultValue={
+                        item.attributes[1] && item.attributes[1].price
+                      }
                       {...register("price2", {
                         required: true,
                         min: 1,
@@ -375,7 +394,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[1] && item.attributes[1].stock}
+                      defaultValue={
+                        item.attributes[1] && item.attributes[1].stock
+                      }
                       {...register("quantity2", {
                         required: true,
                         min: 1,
@@ -391,14 +412,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 3 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 3:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[2] && item.attributes[2].size}
+                      defaultValue={
+                        item.attributes[2] && item.attributes[2].size
+                      }
                       {...register("size3", {
                         required: true,
                         min: 36,
@@ -416,7 +440,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[2] && item.attributes[2].price}
+                      defaultValue={
+                        item.attributes[2] && item.attributes[2].price
+                      }
                       {...register("price3", {
                         required: true,
                         min: 1,
@@ -433,7 +459,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[2] && item.attributes[2].stock}
+                      defaultValue={
+                        item.attributes[2] && item.attributes[2].stock
+                      }
                       {...register("quantity3", {
                         required: true,
                         min: 1,
@@ -449,14 +477,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 4 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 4:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[3] && item.attributes[3].size}
+                      defaultValue={
+                        item.attributes[3] && item.attributes[3].size
+                      }
                       {...register("size4", {
                         required: true,
                         min: 36,
@@ -474,7 +505,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[3] && item.attributes[3].price}
+                      defaultValue={
+                        item.attributes[3] && item.attributes[3].price
+                      }
                       {...register("price4", {
                         required: true,
                         min: 1,
@@ -491,7 +524,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[3] && item.attributes[3].stock}
+                      defaultValue={
+                        item.attributes[3] && item.attributes[3].stock
+                      }
                       {...register("quantity4", {
                         required: true,
                         min: 1,
@@ -507,14 +542,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 5 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 5:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[4] && item.attributes[4].size}
+                      defaultValue={
+                        item.attributes[4] && item.attributes[4].size
+                      }
                       {...register("size5", {
                         required: true,
                         min: 36,
@@ -532,7 +570,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[4] && item.attributes[4].price}
+                      defaultValue={
+                        item.attributes[4] && item.attributes[4].price
+                      }
                       {...register("price5", {
                         required: true,
                         min: 1,
@@ -549,7 +589,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[4] && item.attributes[4].stock}
+                      defaultValue={
+                        item.attributes[4] && item.attributes[4].stock
+                      }
                       {...register("quantity5", {
                         required: true,
                         min: 1,
@@ -565,14 +607,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 6 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 6:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[5] && item.attributes[5].size}
+                      defaultValue={
+                        item.attributes[5] && item.attributes[5].size
+                      }
                       {...register("size6", {
                         required: true,
                         min: 36,
@@ -590,7 +635,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[5] && item.attributes[5].price}
+                      defaultValue={
+                        item.attributes[5] && item.attributes[5].price
+                      }
                       {...register("price6", {
                         required: true,
                         min: 1,
@@ -607,7 +654,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[5] && item.attributes[5].stock}
+                      defaultValue={
+                        item.attributes[5] && item.attributes[5].stock
+                      }
                       {...register("quantity6", {
                         required: true,
                         min: 1,
@@ -623,14 +672,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 7 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm71:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[6] && item.attributes[6].size}
+                      defaultValue={
+                        item.attributes[6] && item.attributes[6].size
+                      }
                       {...register("size7", {
                         required: true,
                         min: 36,
@@ -648,7 +700,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[6] && item.attributes[6].price}
+                      defaultValue={
+                        item.attributes[6] && item.attributes[6].price
+                      }
                       {...register("price7", {
                         required: true,
                         min: 1,
@@ -665,7 +719,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[6] && item.attributes[6].stock}
+                      defaultValue={
+                        item.attributes[6] && item.attributes[6].stock
+                      }
                       {...register("quantity7", {
                         required: true,
                         min: 1,
@@ -681,14 +737,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 8 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 8:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[7] && item.attributes[7].size}
+                      defaultValue={
+                        item.attributes[7] && item.attributes[7].size
+                      }
                       {...register("size8", {
                         required: true,
                         min: 36,
@@ -706,7 +765,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[7] && item.attributes[7].price}
+                      defaultValue={
+                        item.attributes[7] && item.attributes[7].price
+                      }
                       {...register("price8", {
                         required: true,
                         min: 1,
@@ -723,7 +784,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[7] && item.attributes[7].stock}
+                      defaultValue={
+                        item.attributes[7] && item.attributes[7].stock
+                      }
                       {...register("quantity8", {
                         required: true,
                         min: 1,
@@ -739,14 +802,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 9 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 9:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[8] && item.attributes[8].size}
+                      defaultValue={
+                        item.attributes[8] && item.attributes[8].size
+                      }
                       {...register("size9", {
                         required: true,
                         min: 36,
@@ -764,7 +830,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[8] && item.attributes[8].price}
+                      defaultValue={
+                        item.attributes[8] && item.attributes[8].price
+                      }
                       {...register("price9", {
                         required: true,
                         min: 1,
@@ -781,7 +849,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[8] && item.attributes[8].stock}
+                      defaultValue={
+                        item.attributes[8] && item.attributes[8].stock
+                      }
                       {...register("quantity9", {
                         required: true,
                         min: 1,
@@ -797,14 +867,17 @@ const EditProduct = () => {
               </div>
             )}
             {count >= 10 && (
-              <div className="card mr-3">
+              <div className="card mr-3 card-none mb-0">
+                <label>Sản phẩm 10:</label>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label>Size</label>
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[9] && item.attributes[9].size}
+                      defaultValue={
+                        item.attributes[9] && item.attributes[9].size
+                      }
                       {...register("size10", {
                         required: true,
                         min: 36,
@@ -822,7 +895,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[9] && item.attributes[9].price}
+                      defaultValue={
+                        item.attributes[9] && item.attributes[9].price
+                      }
                       {...register("price10", {
                         required: true,
                         min: 1,
@@ -839,7 +914,9 @@ const EditProduct = () => {
                     <input
                       type="number"
                       className="form-control"
-                      defaultValue={item.attributes[9] && item.attributes[9].stock}
+                      defaultValue={
+                        item.attributes[9] && item.attributes[9].stock
+                      }
                       {...register("quantity10", {
                         required: true,
                         min: 1,
