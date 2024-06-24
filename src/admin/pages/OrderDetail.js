@@ -33,7 +33,9 @@ const OrderDetail = () => {
   const goBack = () => {
     history.goBack();
   };
-
+  const formatDate = (dateString) => {
+    return dateString.split("T")[0];
+  };
   return (
     <div className="container-fluid row padding mb-5 card">
       <button style={{ width: 60 }} onClick={() => goBack()}>
@@ -77,10 +79,12 @@ const OrderDetail = () => {
             <thead>
               <tr>
                 <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Ngày tạo</th>
                 <th scope="col">Size</th>
                 <th scope="col">Giá</th>
                 <th scope="col">Số lượng</th>
                 <th scope="col">Tổng</th>
+                <th scope="col">Trạng thái thanh toán</th>
               </tr>
             </thead>
             <tbody>
@@ -88,18 +92,36 @@ const OrderDetail = () => {
                 orderDetail.map((item, index) => (
                   <tr key={index}>
                     <th scope="row">{item.attribute.name}</th>
+                    <td>{order.createDate}</td>
                     <td>{item.attribute.size}</td>
                     <td>{item.sellPrice.toLocaleString()}₫</td>
                     <td>{item.quantity}</td>
                     <td>
                       {(item.sellPrice * item.quantity).toLocaleString()}₫
                     </td>
+                    <td>
+                      {" "}
+                      <div className="col text ">
+                        <p
+                          className="status-success"
+                          style={{ fontWeight: "bolder" }}
+                        >
+                          {order && order.isPending ? (
+                            <p style={{ color: "#28a745" }}>Đã Thanh Toán </p>
+                          ) : (
+                            <div className="text-black">
+                              <p className="text-danger">Chưa Thanh Toán </p>
+                            </div>
+                          )}
+                        </p>
+                      </div>
+                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
           <div className="row mb-5">
-            <div className="col-12 text ">
+            {/* <div className="col-12 text ">
               <p style={{ fontWeight: "bolder" }}>
                 Tạm tính: {amount && amount.toLocaleString()} đ
               </p>
@@ -110,10 +132,37 @@ const OrderDetail = () => {
               <p className="text-danger" style={{ fontWeight: "bolder" }}>
                 Tổng cộng: {total && total.toLocaleString()} đ
               </p>
-            </div>
+            </div> */}
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Tổng tiền sản phẩm</th>
+                  <th scope="col">Voucher sử dụng</th>
+                  <th scope="col">Giảm giá / Voucher</th>
+                  <th scope="col">Tổng tiền phải trả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{amount && amount.toLocaleString()} đ</td>
+                  <td>
+                    {order.voucher?.code
+                      ? order.voucher.code
+                      : "Không có voucher nào sử dụng!"}
+                  </td>
+                  <td>
+                    {" "}
+                    {sale ? ((amount * sale) / 100).toLocaleString() : 0} đ
+                  </td>
+                  <td className="text-danger" style={{ fontWeight: "bolder" }}>
+                    {total && total.toLocaleString()} đ
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div className="row mb-5">
-            <div className="col text ">
+            {/* <div className="col text ">
               <p
                 className="display-4 text-primary"
                 style={{ fontSize: "24px" }}
@@ -134,7 +183,43 @@ const OrderDetail = () => {
               <p className="text-danger" style={{ fontWeight: "bolder" }}>
                 {order.orderStatus && order.orderStatus.name}
               </p>
-            </div>
+            </div> */}
+            <h4 class="offset-1  card-title text-newproduct mb-0 fw-bolder">
+              Thông tin vận chuyển
+            </h4>
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Shipment</th>
+                  <th scope="col">Mã vận đơn</th>
+                  <th scope="col">Ngày dự kiến giao hàng</th>
+                  <th scope="col">Phương thức thanh toán</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderDetail &&
+                  orderDetail.map((item, index) => (
+                    <tr key={index}>
+                      <td>
+                        {order.shipment ? order.shipment : "Chưa có thông tin"}
+                      </td>
+                      <td>{order.code ? order.code : "Chưa có thông tin"}</td>
+
+                      <td>
+                        {" "}
+                        {order.shipDate
+                          ? formatDate(order.shipDate)
+                          : "Chưa có thông tin"}
+                      </td>
+                      <td>
+                        <p className="" style={{ fontWeight: "bolder" }}>
+                          {order && order.payment}
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

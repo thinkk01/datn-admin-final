@@ -176,7 +176,7 @@ const EditProduct = () => {
                 )}
               </div>
               <div className="col-sm-6">
-                <label className="form-label">Code</label>
+                <label className="form-label">Mã sản phẩm</label>
                 <input
                   type="text"
                   className="form-control"

@@ -41,23 +41,50 @@ const ProductForm = () => {
     formState: { errors },
   } = useForm();
 
+  // const onFileChange = (event) => {
+  //   const images = Array.from(event.target.files);
+  //   const links = images.map((item) => item.name);
+  //   let flag = false;
+  //   for (let i of links) {
+  //     if (!i.includes(".jpg") && !i.includes(".png")) {
+  //       toast.warning("File ảnh không hợp lệ.");
+  //       setImage([]);
+  //       flag = true;
+  //       break;
+  //     }
+  //   }
+  //   if (!flag) {
+  //     setImage(images);
+  //   }
+  // };
+  const [images, setImages] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
+
   const onFileChange = (event) => {
-    const images = Array.from(event.target.files);
-    const links = images.map((item) => item.name);
-    let flag = false;
-    for (let i of links) {
-      if (!i.includes(".jpg") && !i.includes(".png")) {
+    const selectedFiles = Array.from(event.target.files);
+    const validImages = [];
+    const urls = [];
+
+    selectedFiles.forEach((file) => {
+      if (file.type === "image/jpeg" || file.type === "image/png") {
+        validImages.push(file);
+        urls.push(URL.createObjectURL(file));
+      } else {
         toast.warning("File ảnh không hợp lệ.");
-        setImage([]);
-        flag = true;
-        break;
       }
-    }
-    if (!flag) {
-      setImage(images);
-    }
+    });
+
+    setImages(validImages);
+    setImageUrls(urls);
   };
 
+  const removeImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    const updatedUrls = imageUrls.filter((_, i) => i !== index);
+
+    setImages(updatedImages);
+    setImageUrls(updatedUrls);
+  };
   const submitHandler = (data) => {
     if (image.length !== 6) {
       toast.warning("Cần tải lên 6 bức ảnh");
@@ -160,7 +187,7 @@ const ProductForm = () => {
   const changeCountHandler = (value) => {
     setCount(value);
   };
-
+  console.log(imageUrls);
   return (
     <div
       className="pb-3 container-fluid card"
@@ -193,7 +220,7 @@ const ProductForm = () => {
                 )}
               </div>
               <div className="col-sm-6">
-                <label className="form-label">Code</label>
+                <label className="form-label">Mã sản phẩm</label>
                 <input
                   type="text"
                   className="form-control"
@@ -894,13 +921,38 @@ const ProductForm = () => {
                       />
                     </label>
                   </div>
-                  <div className="col">
-                    {image &&
+                  <div className="row" style={{ gap: "40px" }}>
+                    {/* {image &&
                       image.map((item, index) => (
                         <span class="badge badge-primary" key={index}>
                           {item.name}
                         </span>
-                      ))}
+                      ))} */}
+                    {imageUrls.map((url, index) => (
+                      <div
+                        key={index}
+                        className="image-preview d-flex"
+                        style={{ flexDirection: "column" }}
+                      >
+                        <img
+                          src={url}
+                          alt={`uploaded-img-${index}`}
+                          style={{ width: "100px", height: "100px" }}
+                        />
+                        <button
+                          type="button"
+                          style={{
+                            position: "absolute",
+                            color: "red",
+                            backgroundColor: "white",
+                            transform: "translate(46px, -42px)",
+                          }}
+                          onClick={() => removeImage(index)}
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
