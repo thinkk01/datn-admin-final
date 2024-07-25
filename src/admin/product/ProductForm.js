@@ -74,18 +74,19 @@ const ProductForm = () => {
       }
     });
 
-    setImages(validImages);
+    setImage(validImages);
     setImageUrls(urls);
   };
 
   const removeImage = (index) => {
-    const updatedImages = images.filter((_, i) => i !== index);
+    const updatedImages = image.filter((_, i) => i !== index);
     const updatedUrls = imageUrls.filter((_, i) => i !== index);
 
-    setImages(updatedImages);
+    setImage(updatedImages);
     setImageUrls(updatedUrls);
   };
   const submitHandler = (data) => {
+    console.log(data);
     if (image.length !== 6) {
       toast.warning("Cần tải lên 6 bức ảnh");
     } else {
@@ -169,6 +170,7 @@ const ProductForm = () => {
             },
           ].slice(0, count),
         };
+        console.log(flag);
         createProduct(flag)
           .then(() => {
             image.forEach((item) => {
